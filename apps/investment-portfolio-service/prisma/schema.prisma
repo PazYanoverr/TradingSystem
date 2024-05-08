@@ -1,0 +1,29 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DB_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Investor {
+  address     String?
+  bankAccount String?
+  createdAt   DateTime     @default(now())
+  id          String       @id @default(cuid())
+  investments Investment[]
+  name        String?
+  updatedAt   DateTime     @updatedAt
+}
+
+model Investment {
+  createdAt  DateTime  @default(now())
+  id         String    @id @default(cuid())
+  investor   Investor? @relation(fields: [investorId], references: [id])
+  investorId String?
+  quantity   Int?
+  stockId    String?
+  updatedAt  DateTime  @updatedAt
+  value      Decimal?
+}
