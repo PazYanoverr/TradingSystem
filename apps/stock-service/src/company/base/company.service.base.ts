@@ -15,6 +15,8 @@ import {
   Company as PrismaCompany,
   Stock as PrismaStock,
 } from "@prisma/client";
+import { CompanyWhereUniqueInput } from "./CompanyWhereUniqueInput";
+import { CompanyMarketCapitalOutput } from "../CompanyMarketCapitalOutput";
 
 export class CompanyServiceBase {
   constructor(protected readonly prisma: PrismaService) {}
@@ -58,5 +60,10 @@ export class CompanyServiceBase {
         where: { id: parentId },
       })
       .stocks(args);
+  }
+  async CompanyMarketCapital(
+    args: CompanyWhereUniqueInput
+  ): Promise<CompanyMarketCapitalOutput> {
+    throw new Error("Not implemented");
   }
 }

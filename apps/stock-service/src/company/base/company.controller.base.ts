@@ -29,6 +29,7 @@ import { CompanyUpdateInput } from "./CompanyUpdateInput";
 import { StockFindManyArgs } from "../../stock/base/StockFindManyArgs";
 import { Stock } from "../../stock/base/Stock";
 import { StockWhereUniqueInput } from "../../stock/base/StockWhereUniqueInput";
+import { CompanyMarketCapitalOutput } from "../CompanyMarketCapitalOutput";
 
 @swagger.ApiBearerAuth()
 @common.UseGuards(defaultAuthGuard.DefaultAuthGuard, nestAccessControl.ACGuard)
@@ -309,5 +310,22 @@ export class CompanyControllerBase {
       data,
       select: { id: true },
     });
+  }
+
+  @common.Get("/:id/company-market-capital")
+  @swagger.ApiOkResponse({
+    type: CompanyMarketCapitalOutput,
+  })
+  @swagger.ApiNotFoundResponse({
+    type: errors.NotFoundException,
+  })
+  @swagger.ApiForbiddenResponse({
+    type: errors.ForbiddenException,
+  })
+  async CompanyMarketCapital(
+    @common.Param()
+    params: CompanyWhereUniqueInput
+  ): Promise<CompanyMarketCapitalOutput> {
+    return this.service.CompanyMarketCapital(params);
   }
 }
