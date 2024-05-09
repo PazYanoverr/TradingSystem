@@ -28,6 +28,8 @@ import { UpdateCompanyArgs } from "./UpdateCompanyArgs";
 import { DeleteCompanyArgs } from "./DeleteCompanyArgs";
 import { StockFindManyArgs } from "../../stock/base/StockFindManyArgs";
 import { Stock } from "../../stock/base/Stock";
+import { CompanyWhereUniqueInput } from "./CompanyWhereUniqueInput";
+import { CompanyMarketCapitalOutput } from "../CompanyMarketCapitalOutput";
 import { CompanyService } from "../company.service";
 @common.UseGuards(GqlDefaultAuthGuard, gqlACGuard.GqlACGuard)
 @graphql.Resolver(() => Company)
@@ -162,5 +164,13 @@ export class CompanyResolverBase {
     }
 
     return results;
+  }
+
+  @graphql.Query(() => CompanyMarketCapitalOutput)
+  async CompanyMarketCapital(
+    @graphql.Args()
+    args: CompanyWhereUniqueInput
+  ): Promise<CompanyMarketCapitalOutput> {
+    return this.service.CompanyMarketCapital(args);
   }
 }

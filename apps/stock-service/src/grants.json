@@ -62,12 +62,6 @@
   {
     "role": "user",
     "resource": "Stock",
-    "action": "read:own",
-    "attributes": "*"
-  },
-  {
-    "role": "user",
-    "resource": "Stock",
     "action": "create:any",
     "attributes": "*"
   },
